@@ -23,7 +23,7 @@ class GameFragment : Fragment(R.layout.fragment_games) {
     private val viewModel: GameViewModel by viewModels()
     private val binding: FragmentGamesBinding by viewBinding()
 
-    private val adapter: GameAdapter by lazy { GameAdapter(requireContext()) }
+    private val adapter: GameAdapter by lazy { GameAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,8 +50,7 @@ class GameFragment : Fragment(R.layout.fragment_games) {
                             binding.loadingPb.isVisible = true
                         }
                         is GameStore.GamesState.Success -> {
-                            val data = state.games
-                            adapter.submitList(data)
+                            adapter.items = state.games
                             binding.loadingPb.isVisible = false
                         }
                     }
